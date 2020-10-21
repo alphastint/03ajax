@@ -17,5 +17,11 @@ namespace _03ajax.Controllers
         {
             _logger = logger;
         }
+
+        [HttpGet]
+        public String<TestController> Get()
+        {
+            return "Hello World";
+        }
     }
 }
