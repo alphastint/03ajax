@@ -1,0 +1,51 @@
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+            </script>
+    </head>
+
+    <body>
+        <h1>Hello World!</h1>
+
+        <ol id="messageboard">
+            <li>1st Message</li>
+        </ol>
+
+
+        <input type="text"> </input>
+        <button onclick="hello();">Send</button>
+
+
+
+        <script>
+            function addmsg(str) {
+                var ol = document.getElementById("messageboard");
+                newLI = document.createElement("li");
+                newText = document.createTextNode(str);
+                newLI.appendChild(newText);
+                ol.appendChild(newLI);
+            }
+
+            function hello() {
+                addmsg("Waiting!");
+
+                $.ajax({
+                    url: "/Test",
+                    success: function (data) {
+                        addmsg(data);
+                        addmsg("done")
+                    }
+                });
+            }
+
+
+        //     $(document).ready(function() {
+        //     document.write("Hello, World!");
+        //  });
+        </script>
+    </body>
+
+</html>

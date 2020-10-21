@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading;
 
 namespace _03ajax.Controllers
 {
@@ -23,6 +26,8 @@ namespace _03ajax.Controllers
         [HttpGet]
         public string Get()
         {
+            Thread.Sleep(10000);
+
             return "Hello World";
         }
     }
