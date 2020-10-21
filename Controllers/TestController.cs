@@ -11,11 +11,13 @@ namespace laci.Controllers
     [Route("[controller]")]
     public class TestController : ControllerBase
     {
+        int a = 0;
         private readonly ILogger<TestController> _logger;
 
         public TestController(ILogger<TestController> logger)
         {
             _logger = logger;
+            a += 1;
         }
     }
 }
