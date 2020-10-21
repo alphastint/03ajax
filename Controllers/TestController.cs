@@ -11,6 +11,7 @@ namespace _03ajax.Controllers
     [Route("[controller]")]
     public class TestController : ControllerBase
     {
+        int a = 0;
         private readonly ILogger<TestController> _logger;
 
         public TestController(ILogger<TestController> logger)
@@ -19,7 +20,7 @@ namespace _03ajax.Controllers
         }
 
         [HttpGet]
-        public String<TestController> Get()
+        public string Get()
         {
             return "Hello World";
         }
