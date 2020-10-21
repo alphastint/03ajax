@@ -17,6 +17,7 @@ namespace _03ajax.Controllers
         public TestController(ILogger<TestController> logger)
         {
             _logger = logger;
+            a += 1;
         }
 
         [HttpGet]
