@@ -14,11 +14,13 @@
             <li>1st Message</li>
         </ol>
 
+        <p>Username</p>
+        <input id="username" type="text"> </input>
+        <button onclick="hello();">Login</button>
 
-        <input type="text"> </input>
-        <button onclick="hello();">Send</button>
-
-
+        <p>Message</p>
+        <input id="message" type="text"> </input>
+        <button onclick="sendmessage();">Send</button>
 
         <script>
             function addmsg(str) {
@@ -30,13 +32,26 @@
             }
 
             function hello() {
-                addmsg("Waiting!");
-
+                // addmsg("Waiting!");
+                var username = document.getElementById("username").value;
                 $.ajax({
-                    url: "/Test",
+                    url: `/Test?username=${username}`,
                     success: function (data) {
                         addmsg(data);
-                        addmsg("done")
+                        // addmsg("done")
+                        hello();
+                    }
+                });
+            }
+
+            function sendmessage() {
+                addmsg("sending!");
+                var message = document.getElementById("message").value;
+                $.ajax({
+                    url: `/Send?message=${message}`,
+                    success: function (data) {
+                        addmsg(data);
+                        // addmsg("done")
                     }
                 });
             }
