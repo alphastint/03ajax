@@ -13,16 +13,16 @@ namespace _03ajax.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TestController : ControllerBase
+    public class LoginController : ControllerBase
     {
-        public static UserManager mUserManager = new UserManager();
+        public static readonly UserManager mUserManager = new UserManager();
         int a = 0;
         readonly object Mutex = new object();
 
         string message = "";
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<LoginController> _logger;
         WebSocket socket;
-        public TestController(ILogger<TestController> logger)
+        public LoginController(ILogger<LoginController> logger)
         {
             _logger = logger;
             a += 1;
@@ -31,12 +31,13 @@ namespace _03ajax.Controllers
         [HttpGet]
         public string Get(string username)
         {
-            Console.WriteLine(" string Get(string username)");
+            Console.WriteLine($" string Get(string {username})");
             lock (Mutex)
             {
                 Monitor.Enter(Mutex);
             }
             Console.WriteLine("swait");
+            // mUserManager.SendMessageToAll($"SERV:> {username} has logged in");
             var user = mUserManager.AddUser(username);
             user.MessageArrived += delegate (string message)
             {

@@ -15,13 +15,13 @@ namespace _03ajax.Controllers
     [Route("[controller]")]
     public class SendController : ControllerBase
     {
-        public static UserManager mUserManager = new UserManager();
+
         int a = 0;
 
         static string message = "";
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<SendController> _logger;
         WebSocket socket;
-        public SendController(ILogger<TestController> logger)
+        public SendController(ILogger<SendController> logger)
         {
             _logger = logger;
             a += 1;
@@ -30,9 +30,18 @@ namespace _03ajax.Controllers
 
 
         [HttpGet]
-        public string Get(string message)
+        public string Get(string message, string username)
         {
-            TestController.mUserManager.SendMessage(message);
+            if (username == "" || username == null)
+            {
+                Console.WriteLine($"mUserManager.SendMessageToAll({message});");
+                LoginController.mUserManager.SendMessageToAll(message);
+            }
+            else
+            {
+                Console.WriteLine($"mUserManager.SendMessageToUser({message}, {username});");
+                LoginController.mUserManager.SendMessageToUser(message, username);
+            }
 
             return "Ok";
         }

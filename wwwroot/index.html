@@ -16,11 +16,16 @@
 
         <p>Username</p>
         <input id="username" type="text"> </input>
-        <button onclick="hello();">Login</button>
+        <button onclick="login();">Login</button>
 
         <p>Message</p>
         <input id="message" type="text"> </input>
-        <button onclick="sendmessage();">Send</button>
+        <button onclick="sendmessage();">Send to
+            All</button>
+
+        <input id="recipient" type="text"> </input>
+        <button onclick="sendtouser();">Send to
+            User</button>
 
         <script>
             function addmsg(str) {
@@ -31,15 +36,18 @@
                 ol.appendChild(newLI);
             }
 
-            function hello() {
+            function login() {
                 // addmsg("Waiting!");
                 var username = document.getElementById("username").value;
                 $.ajax({
-                    url: `/Test?username=${username}`,
+                    url: `/Login?username=${username}`,
                     success: function (data) {
                         addmsg(data);
                         // addmsg("done")
-                        hello();
+                        login();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        login();
                     }
                 });
             }
@@ -49,6 +57,19 @@
                 var message = document.getElementById("message").value;
                 $.ajax({
                     url: `/Send?message=${message}`,
+                    success: function (data) {
+                        addmsg(data);
+                        // addmsg("done")
+                    }
+                });
+            }
+
+            function sendtouser() {
+                var message = document.getElementById("message").value;
+                var recipient = document.getElementById("recipient").value;
+                addmsg(`sending to ${recipient}!`);
+                $.ajax({
+                    url: `/Send?message=${message}&username=${recipient}`,
                     success: function (data) {
                         addmsg(data);
                         // addmsg("done")
